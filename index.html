@@ -12,7 +12,7 @@
 <body>
     <div class="form-card">
         <h2>Job Application Details</h2>
-        <form id="jobForm">
+        <form id="jobForm" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Job Title</label>
                 <input type="text" name="job_title" placeholder="Enter the Job Title" required>
@@ -76,9 +76,9 @@
                 <div class="col">
                     <label>State</label>
                     <select name="state" required>
-                        <option value="">Seletct State</option>
+                        <option value="">Select State</option>
                         <option value="Gujarat">Gujarat</option>
-                        <option value="Rajastahan">Rajastahan</option>
+                        <option value="Rajasthan">Rajasthan</option>
                         <option value="Maharashtra">Maharashtra</option>
                     </select>
                 </div>
@@ -92,8 +92,15 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <label>Upload Cover Image</label>
+                <input type="file" name="job_image" accept="image/*" required>
+            </div>
             <button type="submit">Submit</button>
             <div id="message"></div>
+            <a href="view_jobs.php"
+                style="display: block; text-align: center; margin-top: 20px; color: #0d6efd; text-decoration: none; font-weight: bold;">View
+                All Jobs (Grid Layout)</a>
         </form>
     </div>
     <script>
