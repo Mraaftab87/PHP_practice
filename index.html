@@ -100,7 +100,7 @@
             <div id="message"></div>
             <a href="view_jobs.php"
                 style="display: block; text-align: center; margin-top: 20px; color: #0d6efd; text-decoration: none; font-weight: bold;">View
-                All Jobs (Grid Layout)</a>
+                All Jobs</a>
         </form>
     </div>
     <script>
@@ -108,13 +108,17 @@
             $('#jobForm').on('submit', function (e) {
                 e.preventDefault();
 
+                var formData = new FormData(this);
+
                 $.ajax({
                     type: 'POST',
                     url: 'process_job.php',
-                    data: $(this).serialize(),
+                    data: formData,
+                    contentType: false,
+                    processData: false,
                     success: function (response) {
                         if (response.trim() == "success") {
-                            $('#message').html('<span style="color: green;">Job details saved successfully!</span>');
+                            $('#message').html('<span style="color: green;">Job details & image saved successfully!</span>');
                             $('#jobForm')[0].reset();
                         } else {
                             $('#message').html('<span style="color: red;">Error: ' + response + '</span>');
