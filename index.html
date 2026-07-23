@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job application</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label>Job Description</label>
-                <textarea name="job_description" placeholder="Description"></textarea>
+                <textarea name="job_description" id="job_desc" placeholder="Description"></textarea>
             </div>
             <div class="row">
                 <div class="col">
@@ -105,6 +106,17 @@
     </div>
     <script>
         $(document).ready(function () {
+            
+        let myEditor;
+            ClassicEditor
+                .create(document.querySelector('#job_desc'))
+                .then(editor => {
+                    myEditor = editor;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
             $('#jobForm').on('submit', function (e) {
                 e.preventDefault();
 
