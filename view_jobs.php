@@ -102,6 +102,7 @@
                 while($row = $result->fetch_assoc()) {
                     $image_src = !empty($row['image_path']) ? $row['image_path'] : 'https://via.placeholder.com/250x150?text=No+Image';
 
+                    echo '<a href="job_details.php?id=' . $row["id"] . '" style="text-decoration: none; color: inherit; display: block;">';
                     echo '<div class="job-card">';
                     echo '<img src="' . $image_src . '" alt="Job Cover" class="job-image">';
                     echo '<div class="job-details">';
@@ -113,6 +114,7 @@
                     
                     echo '</div>';
                     echo '</div>';
+                    echo '</a>';
                 }
             } else {
                 echo "<p style='grid-column: 1 / -1; text-align: center;'>No jobs found matching your criteria.</p>";
