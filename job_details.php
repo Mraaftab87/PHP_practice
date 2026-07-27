@@ -131,14 +131,15 @@ if (isset($_GET['id'])) {
                 <div class="job-meta">
                 </div>
 
+                
+                <div class="job-desc">
+                    </div>
+                    
+                    <div class="job-desc">
+                        <?php echo $row['job_description'];?>
+                    </div>
+                
                 <a href="#" class="apply-btn">Apply Now</a>
-
-                <div class="job-desc">
-                </div>
-
-                <div class="job-desc">
-                    <?php echo $row['job_description'];?>
-                </div>
             </div>
 
             <div class="sidebar">
