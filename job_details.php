@@ -5,63 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Details</title>
     <style>
-
         body {
             font-family: sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-
-        .details-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .job-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .job-header {
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .job-header h1 {
+            background-color: #fff;
+            color: #333;
             margin: 0;
-            color: #023683;
+            padding: 40px;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .page-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        .main-content {
+            flex: 3;
+        }
+
+        .sidebar {
+            flex: 1;
+            border-left: 1px solid #eee;
+            padding-left: 20px;
+        }
+
+        .job-title {
+            color: #082e94;
+            font-size: 32px;
+            margin-top: 0;
             margin-bottom: 20px;
         }
 
-        .info-box {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            border-left: 4px solid #b0c4c4;
+        .job-meta {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-size: 15px;
         }
 
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #023683;
-            color: white;
+        .job-desc {
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            flex: 1;
+        }
+
+        .search-box button {
+            padding: 8px 15px;
+            background: #ddd;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .sidebar-title {
+            color: #4542e4;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+            line-height: 2.2;
+        }
+
+        .sidebar-list a {
             text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
+            color: #555;
         }
     </style>
 </head>
@@ -70,7 +90,6 @@
 <?php
 if (isset($_GET['id'])) {
     $job_id = $_GET['id'];
-
     $conn = new mysqli("localhost", "root", "", "form_app");
     if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
@@ -79,32 +98,46 @@ if (isset($_GET['id'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $image_src = !empty($row['image_path']) ? $row['image_path'] : 'https://via.placeholder.com/800x300?text=No+Image';
+        ?>
+        <div class="page-container">
+            <!-- Left Column: Job Details -->
+            <div class="main-content">
+                <h1 class="job-title"><?php echo htmlspecialchars($row['job_title']); ?></h1>
+                
+                <div class="job-meta">
+                    <strong><?php echo htmlspecialchars($row['city']); ?></strong><br>
+                    Job Type: <?php echo htmlspecialchars($row['job_type']); ?><br>
+                    Years of experience: <?php echo htmlspecialchars($row['experience']); ?><br>
+                    Career level: <?php echo htmlspecialchars($row['career_level']); ?><br>
+                    Salary: <?php echo htmlspecialchars($row['salary']); ?>
+                </div>
 
-        echo '<div class="details-container">';
-        echo '<img src="' . $image_src . '" alt="Job Image" class="job-image">';
-        
-        echo '<div class="job-header">';
-        echo '<h1>' . htmlspecialchars($row['job_title']) . '</h1>';
-        echo '<p><strong>Category:</strong> ' . htmlspecialchars($row['category']) . ' | <strong>Location:</strong> ' . htmlspecialchars($row['city']) . ', ' . htmlspecialchars($row['state']) . '</p>';
-        echo '</div>';
+                <div class="job-desc">
+                    <?php echo $row['job_description']; // CKEditor ka text bina htmlspecialchars ke ?>
+                </div>
+            </div>
 
-        echo '<div class="info-grid">';
-        echo '<div class="info-box"><strong>Job Type:</strong><br>' . htmlspecialchars($row['job_type']) . '</div>';
-        echo '<div class="info-box"><strong>Experience:</strong><br>' . htmlspecialchars($row['experience']) . '</div>';
-        echo '<div class="info-box"><strong>Career Level:</strong><br>' . htmlspecialchars($row['career_level']) . '</div>';
-        echo '<div class="info-box"><strong>Salary:</strong><br>' . htmlspecialchars($row['salary']) . '</div>';
-        echo '<div class="info-box"><strong>Recruiter:</strong><br>' . htmlspecialchars($row['recruiter']) . '</div>';
-        echo '<div class="info-box"><strong>Contact:</strong><br>' . htmlspecialchars($row['email']) . '</div>';
-        echo '</div>';
-
-        echo '<h3>Job Description</h3>';
-        echo '<div style="margin-top: 15px; line-height: 1.6; background: #fff; padding: 20px; border-radius: 5px; border: 1px solid #ddd;">';
-        echo $row['job_description'];
-        echo '</div>';
-
-        echo '<a href="view_jobs.php" class="back-btn">← Back to Jobs</a>';
-        echo '</div>';
+            <!-- Right Column: Sidebar -->
+            <div class="sidebar">
+                <div class="search-box">
+                    <input type="text" placeholder="">
+                    <button>Search</button>
+                </div>
+                
+                <h3 class="sidebar-title">Categories</h3>
+                <ul class="sidebar-list">
+                    <li><a href="#">Fun Facts</a></li>
+                    <li><a href="#">Hospitality Industry</a></li>
+                    <li><a href="#">Job Interview Tips</a></li>
+                    <li><a href="#">Manager Tips</a></li>
+                    <li><a href="#">Recruiters</a></li>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Uncategorized</a></li>
+                </ul>
+            </div>
+        </div>
+        <?php
     } else {
         echo "<h2 style='text-align:center;'>Job not found!</h2>";
     }
