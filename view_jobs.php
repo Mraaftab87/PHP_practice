@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Jobs</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; }
+        body { 
+            font-family: sans-serif; 
+            background-color: #f4f4f4; 
+            padding: 20px; 
+        }
         .job-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
