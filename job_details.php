@@ -31,7 +31,7 @@
         }
 
         .job-title {
-            color: #082e94;
+            color: #5c698a;
             font-size: 32px;
             margin-top: 0;
             margin-bottom: 20px;
@@ -83,6 +83,22 @@
             text-decoration: none;
             color: #555;
         }
+
+        .apply-btn {
+            display: inline-block;
+            background-color: #04075f;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .apply-btn:hover { 
+            background-color: #0c2393; 
+        }
     </style>
 </head>
 <body>
@@ -112,12 +128,19 @@ if (isset($_GET['id'])) {
                     Salary: <?php echo htmlspecialchars($row['salary']); ?>
                 </div>
 
+                <div class="job-meta">
+                </div>
+
+                <a href="#" class="apply-btn">Apply Now</a>
+
                 <div class="job-desc">
-                    <?php echo $row['job_description']; // CKEditor ka text bina htmlspecialchars ke ?>
+                </div>
+
+                <div class="job-desc">
+                    <?php echo $row['job_description'];?>
                 </div>
             </div>
 
-            <!-- Right Column: Sidebar -->
             <div class="sidebar">
                 <div class="search-box">
                     <input type="text" placeholder="">
