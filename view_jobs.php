@@ -10,6 +10,7 @@
             background-color: #f4f4f4; 
             padding: 20px; 
         }
+
         .job-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -17,6 +18,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .job-card {
             background: white;
             border-radius: 8px;
@@ -28,9 +30,19 @@
             height: 150px;
             object-fit: cover;
         }
-        .job-details { padding: 15px; }
-        .job-details h3 { margin: 0 0 10px 0; color: #023683; font-size: 16px; }
-        .job-details p { margin: 5px 0; font-size: 14px; color: #555; }
+        .job-details { 
+            padding: 15px; 
+        }
+        .job-details h3 { 
+            margin: 0 0 10px 0; 
+            color: #023683; 
+            font-size: 16px; 
+        }
+        .job-details p { 
+            margin: 5px 0; 
+            font-size: 14px; 
+            color: #555; 
+        }
     </style>
 </head>
 <body>
