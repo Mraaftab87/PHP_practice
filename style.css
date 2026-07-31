@@ -64,6 +64,10 @@ textarea {
     height: 120px;
 }
 
+.ck-editor__editable {
+    min-height: 300px;
+}
+
 button {
     width: 100%;
     padding: 12px;
