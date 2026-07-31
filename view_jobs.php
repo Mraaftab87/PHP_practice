@@ -43,6 +43,45 @@
             font-size: 14px; 
             color: #555; 
         }
+        .pagination_container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: white;
+        }
+        .pagination li {
+            border-right: 1px solid #e0e0e0;
+        }
+        .pagination li:last-child {
+            border-right: none;
+        }
+        .pagination a, .pagination span {
+            display: block;
+            padding: 10px 18px;
+            text-decoration: none;
+            color: #9c7a27;
+            font-size: 16px;
+        }
+        .pagination li.acitve {
+            background-color: #b7c7c9;
+        }
+        .pagination a:hover {
+            background-color: #f9f9f9;
+        }
+        .pagination .dots{
+            pointer-events: none;
+            color: #555;
+        }
     </style>
 </head>
 <body>
