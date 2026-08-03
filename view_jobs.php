@@ -45,7 +45,7 @@
         }
         .pagination_container {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             margin-top: 40px;
             margin-bottom: 40px;
             max-width: 1200px;
@@ -192,7 +192,7 @@
     </div>
 
     <?php if ($total_pages > 1): ?>
-    <div class="pagination_containe">
+    <div class="pagination_container">
         <ul class="pagination">
             <?php
                 $query_string = $_GET;
