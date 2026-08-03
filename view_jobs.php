@@ -35,7 +35,7 @@
         }
         .job-details h3 { 
             margin: 0 0 10px 0; 
-            color: #023683; 
+            color: #6f631e; 
             font-size: 16px; 
         }
         .job-details p { 
@@ -48,6 +48,8 @@
             justify-content: center;
             margin-top: 40px;
             margin-bottom: 40px;
+            max-width: 1200px;
+            margin: 40px auto;
         }
         .pagination {
             display: flex;
@@ -125,7 +127,11 @@
             $conn = new mysqli("localhost", "root", "", "form_app");
             if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
-            $sql = "SELECT * FROM job_postings";
+            // Pagination Variables
+            $limit = 8; // 8 jobs per page (4 up, 4 down)
+            $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+            $offset = ($page - 1) * $limit;
+
             $conditions = [];
 
             if (!empty($_GET['search_name'])) {
@@ -145,12 +151,19 @@
                 $conditions[] = "city = '$city'";
             }
 
+            $where_clause = "";
             if (count($conditions) > 0) {
-                $sql .= " WHERE " . implode(" AND ", $conditions);
+                $where_clause = " WHERE " . implode(" AND ", $conditions);
             }
 
-            $sql .= " ORDER BY id DESC"; 
+            // 1. Get total number of jobs for pagination calculation
+            $count_sql = "SELECT COUNT(*) as total FROM job_postings" . $where_clause;
+            $count_result = $conn->query($count_sql);
+            $total_rows = $count_result->fetch_assoc()['total'];
+            $total_pages = ceil($total_rows / $limit);
 
+            // 2. Fetch the actual jobs for the current page
+            $sql = "SELECT * FROM job_postings" . $where_clause . " ORDER BY id DESC LIMIT $limit OFFSET $offset"; 
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -174,9 +187,43 @@
             } else {
                 echo "<p style='grid-column: 1 / -1; text-align: center;'>No jobs found matching your criteria.</p>";
             }
-            $conn->close();
         ?>
 
+    </div>
+
+    <?php if ($total_pages > 1): ?>
+    <div class="pagination_containe">
+        <ul class="pagination">
+            <?php
+                $query_string = $_GET;
+                unset($query_string['page']);
+                $qs = http_build_query($query_string);
+                $qs = $qs ? '&' . $qs : '';
+
+                if ($page > 1) {
+                    echo '<li><a href="?page=' . ($page - 1) . $qs . '">&larr; Prev</a></li>';
+                }
+
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    if ($i == 1 || $i == $total_pages || ($i >= $page - 1 && $i <= $page + 1)) {
+                        $active = ($i == $page) ? 'class="active"' : '';
+                        echo '<li ' . $active . '><a href="?page=' . $i . $qs . '">' . $i . '</a></li>';
+                    } elseif ($i == 2 && $page > 3) {
+                        echo '<li><span class="dots">...</span></li>';
+                    } elseif ($i == $total_pages - 1 && $page < $total_pages - 2) {
+                        echo '<li><span class="dots">...</span></li>';
+                    }
+                }
+
+                if ($page < $total_pages) {
+                    echo '<li><a href="?page=' . ($page + 1) . $qs . '">Next &rarr;</a></li>';
+                }
+            ?>
+        </ul>
+    </div>
+    <?php endif; 
+    $conn->close();
+    ?>
     </div>
 </body>
 </html>
