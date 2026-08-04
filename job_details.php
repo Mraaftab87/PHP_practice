@@ -116,7 +116,6 @@ if (isset($_GET['id'])) {
         $row = $result->fetch_assoc();
         ?>
         <div class="page-container">
-            <!-- Left Column: Job Details -->
             <div class="main-content">
                 <h1 class="job-title"><?php echo htmlspecialchars($row['job_title']); ?></h1>
                 

@@ -127,8 +127,7 @@
             $conn = new mysqli("localhost", "root", "", "form_app");
             if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
-            // Pagination Variables
-            $limit = 8; // 8 jobs per page (4 up, 4 down)
+            $limit = 8;
             $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
             $offset = ($page - 1) * $limit;
 
@@ -156,13 +155,11 @@
                 $where_clause = " WHERE " . implode(" AND ", $conditions);
             }
 
-            // 1. Get total number of jobs for pagination calculation
             $count_sql = "SELECT COUNT(*) as total FROM job_postings" . $where_clause;
             $count_result = $conn->query($count_sql);
             $total_rows = $count_result->fetch_assoc()['total'];
             $total_pages = ceil($total_rows / $limit);
 
-            // 2. Fetch the actual jobs for the current page
             $sql = "SELECT * FROM job_postings" . $where_clause . " ORDER BY id DESC LIMIT $limit OFFSET $offset"; 
             $result = $conn->query($sql);
 
