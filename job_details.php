@@ -68,7 +68,7 @@
         }
 
         .sidebar-title {
-            color: #4542e4;
+            color: #728117;
             font-size: 20px;
             margin-bottom: 15px;
         }

@@ -95,7 +95,7 @@
             <select name="search_category" style="padding: 10px; border: 1px solid #ccc;">
                 <option value="">Search by category</option>
                 <option value="Resorts" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'Resorts') echo 'selected'; ?>>Resorts</option>
-                <option value="All" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'All') echo 'selected'; ?>>All</option>
+                <option value="">All</option>
                 <option value="Fast Casual" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'Fast Casual') echo 'selected'; ?>>Fast Casual</option>
                 <option value="Fine Dining" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'Fine Dining') echo 'selected'; ?>>Fine Dining</option>
                 <option value="Italian" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'Italian') echo 'selected'; ?>>Italian</option>
