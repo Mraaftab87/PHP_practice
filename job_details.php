@@ -86,18 +86,18 @@
 
         .apply-btn {
             display: inline-block;
-            background-color: #04075f;
-            color: white;
+            background-color: #e2cf6d;
+            color: #6f631e;
             padding: 12px 25px;
             text-decoration: none;
             font-weight: bold;
             margin-bottom: 30px;
-            border-radius: 4px;
             font-size: 16px;
         }
 
         .apply-btn:hover { 
-            background-color: #0c2393; 
+            background-color: #6f631e;
+            color: #e2cf6d; 
         }
     </style>
 </head>

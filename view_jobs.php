@@ -87,12 +87,12 @@
     </style>
 </head>
 <body>
-    <h2 style="text-align: center; margin-bottom: 30px;">Available Jobs</h2>
-    <div style="margin-bottom: 30px; display: flex; justify-content: center;">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #686818">Available Jobs</h2>
+    <div style="margin-bottom: 30px; margin-left: 9%; display: flex; justify-content: flex-start;">
         <form method="GET" action="view_jobs.php" style="display: flex; gap: 10px;">
-            <input type="text" name="search_name" placeholder="Search by Job name" style="padding: 10px; border: 1px solid #ccc;">
+            <input type="text" name="search_name" placeholder="Search by Job name" style="padding: 10px; border: 1px solid #ccc; width: 300px; font-size:16px;">
             
-            <select name="search_category" style="padding: 10px; border: 1px solid #ccc;">
+            <select name="search_category" style="padding: 10px; border: 1px solid #ccc; width: 180px; font-size: 16px">
                 <option value="">Search by category</option>
                 <option value="Resorts" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'Resorts') echo 'selected'; ?>>Resorts</option>
                 <option value="">All</option>
@@ -104,21 +104,21 @@
                 <option value="Sports Bar" <?php if(isset($_GET['search_category']) && $_GET['search_category'] == 'Sports Bar') echo 'selected'; ?>>Sports Bar</option>
             </select>
 
-            <select name="search_state" style="padding: 10px; border: 1px solid #ccc;">
+            <select name="search_state" style="padding: 10px; border: 1px solid #ccc;  width: 170px; font-size: 16px">
                 <option value="">Search by state</option>
                 <option value="Gujarat" <?php if(isset($_GET['search_state']) && $_GET['search_state'] == 'Gujarat') echo 'selected'; ?>>Gujarat</option>
                 <option value="Rajasthan" <?php if(isset($_GET['search_state']) && $_GET['search_state'] == 'Rajasthan') echo 'selected'; ?>>Rajasthan</option>
                 <option value="Maharashtra" <?php if(isset($_GET['search_state']) && $_GET['search_state'] == 'Maharashtra') echo 'selected'; ?>>Maharashtra</option>
             </select>
 
-            <select name="search_city" style="padding: 10px; border: 1px solid #ccc;">
+            <select name="search_city" style="padding: 10px; border: 1px solid #ccc;  width: 150px; font-size: 16px">
                 <option value="">Search by city</option>
                 <option value="Rajkot" <?php if(isset($_GET['search_city']) && $_GET['search_city'] == 'Rajkot') echo 'selected'; ?>>Rajkot</option>
                 <option value="Ahmedabad" <?php if(isset($_GET['search_city']) && $_GET['search_city'] == 'Ahmedabad') echo 'selected'; ?>>Ahmedabad</option>
                 <option value="Mumbai" <?php if(isset($_GET['search_city']) && $_GET['search_city'] == 'Mumbai') echo 'selected'; ?>>Mumbai</option>
             </select>
 
-            <button type="submit" style="padding: 10px 20px; background-color: #b0c4c4; border: none; font-weight: bold; cursor: pointer;">SEARCH</button>
+            <button type="submit" style="padding: 10px 20px; background-color: #b0c4c4; border: none; font-weight: bold; cursor: pointer; color: #686818;">SEARCH</button>
             </form>
     </div>
     <div class="job-grid">
