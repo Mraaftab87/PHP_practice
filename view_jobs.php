@@ -8,7 +8,8 @@
         body { 
             font-family: sans-serif; 
             background-color: #f4f4f4; 
-            padding: 20px; 
+            padding: 0;
+            margin: 0;
         }
 
         .job-grid {
@@ -24,6 +25,7 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: 100%;
         }
         .job-image {
             width: 100%;
@@ -88,7 +90,7 @@
 </head>
 <body>
     <h2 style="text-align: center; margin-bottom: 30px; color: #686818">Available Jobs</h2>
-    <div style="margin-bottom: 30px; margin-left: 9%; display: flex; justify-content: flex-start;">
+    <div style="max-width: 1200px; margin: 0 auto 30px auto; display: flex; justify-content: flex-start;">
         <form method="GET" action="view_jobs.php" style="display: flex; gap: 10px;">
             <input type="text" name="search_name" placeholder="Search by Job name" style="padding: 10px; border: 1px solid #ccc; width: 300px; font-size:16px;">
             
@@ -222,5 +224,23 @@
     $conn->close();
     ?>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax {
+                    type: 'GET',
+                    url: 'view_jobs.php',
+                    data: formData,
+                    succuss: function(response) {
+                    },
+                    error: function() {
+                        alert('Something went wrong!');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
