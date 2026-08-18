@@ -40,7 +40,6 @@ $result = $conn->query($sql);
 ?>
 
 <?php 
-// AGAR REQUEST AJAX SE NAHI AAYI, TOH YE UPPER KA HTML DIKHAO
 if(!isset($_GET['ajax'])): 
 ?>
 <!DOCTYPE html>
@@ -103,11 +102,9 @@ if(!isset($_GET['ajax'])):
         </form>
     </div>
 
-    <!-- MAIN WRAPPER: AJAX me hum is pure dabbe ko replace karenge -->
     <div id="job-data-container">
 <?php endif; ?>
 
-        <!-- GRID aur PAGINATION dono yahan hain -->
         <div class="job-grid">
             <?php
                 if ($result->num_rows > 0) {
@@ -160,10 +157,9 @@ if(!isset($_GET['ajax'])):
 <?php 
 $conn->close();
 
-// AGAR REQUEST AJAX SE NAHI AAYI, TOH YE NICHE KA HTML DIKHAO
 if(!isset($_GET['ajax'])): 
 ?>
-    </div> <!-- END MAIN WRAPPER -->
+    </div>
 
     <script>
         $(document).ready(function() {
@@ -177,7 +173,6 @@ if(!isset($_GET['ajax'])):
                     url: 'view_jobs.php',
                     data: formData,
                     success: function(response) {
-                        // Ab hum sirf '.job-grid' nahi, poore div ko update kar rahe hain jisme pagination bhi hai
                         $('#job-data-container').html(response);
                     },
                     error: function() {
