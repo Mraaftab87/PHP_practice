@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,80 +97,125 @@
             font-size: 16px;
         }
 
-        .apply-btn:hover { 
+        .apply-btn:hover {
             background-color: #6f631e;
-            color: #e2cf6d; 
+            color: #e2cf6d;
         }
     </style>
 </head>
+
 <body>
 
-<?php
-if (isset($_GET['id'])) {
-    $job_id = $_GET['id'];
-    $conn = new mysqli("localhost", "root", "", "form_app");
-    if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
+    <?php
+    if (isset($_GET['id'])) {
+        $job_id = $_GET['id'];
+        $conn = new mysqli("localhost", "root", "", "form_app");
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-    $sql = "SELECT * FROM job_postings WHERE id = $job_id";
-    $result = $conn->query($sql);
+        $sql = "SELECT * FROM job_postings WHERE id = $job_id";
+        $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        ?>
-        <div class="page-container">
-            <div class="main-content">
-                <h1 class="job-title"><?php echo htmlspecialchars($row['job_title']); ?></h1>
-                
-                <div class="job-meta">
-                    <strong><?php echo htmlspecialchars($row['city']); ?></strong><br>
-                    Job Type: <?php echo htmlspecialchars($row['job_type']); ?><br>
-                    Years of experience: <?php echo htmlspecialchars($row['experience']); ?><br>
-                    Career level: <?php echo htmlspecialchars($row['career_level']); ?><br>
-                    Salary: <?php echo htmlspecialchars($row['salary']); ?>
-                </div>
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+    ?>
+            <div class="page-container">
+                <div class="main-content">
+                    <h1 class="job-title"><?php echo htmlspecialchars($row['job_title']); ?></h1>
 
-                <div class="job-meta">
-                </div>
-
-                
-                <div class="job-desc">
+                    <div class="job-meta">
+                        <strong><?php echo htmlspecialchars($row['city']); ?></strong><br>
+                        Job Type: <?php echo htmlspecialchars($row['job_type']); ?><br>
+                        Years of experience: <?php echo htmlspecialchars($row['experience']); ?><br>
+                        Career level: <?php echo htmlspecialchars($row['career_level']); ?><br>
+                        Salary: <?php echo htmlspecialchars($row['salary']); ?>
                     </div>
-                    
+
+                    <div class="job-meta">
+                    </div>
+
                     <div class="job-desc">
-                        <?php echo $row['job_description'];?>
                     </div>
-                
-                <a href="#" class="apply-btn">Apply Now</a>
-            </div>
 
-            <div class="sidebar">
-                <div class="search-box">
-                    <input type="text" placeholder="">
-                    <button>Search</button>
+                    <div class="job-desc">
+                        <?php echo $row['job_description']; ?>
+                    </div>
+
+                    <a href="#" class="apply-btn" id="showFormBtn">Apply Now</a>
+
+                    <form id="applyForm" action="process_application.php" method="POST" enctype="multipart/form-data" style="display: none; margin-top: 30px; background: #f9f9f9; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+                        <h3>Submit Your Application</h3>
+
+                        <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Name:</label>
+                            <input type="text" name="name" required style="width: 100%; padding: 8px; border: 1px solid #ccc;">
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Email:</label>
+                            <input type="email" name="email" required style="width: 100%; padding: 8px; border: 1px solid #ccc;">
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Phone Number:</label>
+                            <input type="tel" name="phone_number" required style="width: 100%; padding: 8px; border: 1px solid #ccc;">
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Upload Resume:</label>
+                            <input type="file" name="resume" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Cover Letter:</label>
+                            <textarea name="cover_letter" rows="5" required style="width: 100%; padding: 8px; border: 1px solid #ccc; font-family: inherit;"></textarea>
+                        </div>
+
+                        <button type="submit" class="apply-btn" style="border: none; cursor: pointer; width: 100%;">Submit Application</button>
+                    </form>
                 </div>
-                
-                <h3 class="sidebar-title">Categories</h3>
-                <ul class="sidebar-list">
-                    <li><a href="#">Fun Facts</a></li>
-                    <li><a href="#">Hospitality Industry</a></li>
-                    <li><a href="#">Job Interview Tips</a></li>
-                    <li><a href="#">Manager Tips</a></li>
-                    <li><a href="#">Recruiters</a></li>
-                    <li><a href="#">Restaurants</a></li>
-                    <li><a href="#">Service</a></li>
-                    <li><a href="#">Uncategorized</a></li>
-                </ul>
+
+                <div class="sidebar">
+                    <div class="search-box">
+                        <input type="text" placeholder="">
+                        <button>Search</button>
+                    </div>
+
+                    <h3 class="sidebar-title">Categories</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="#">Fun Facts</a></li>
+                        <li><a href="#">Hospitality Industry</a></li>
+                        <li><a href="#">Job Interview Tips</a></li>
+                        <li><a href="#">Manager Tips</a></li>
+                        <li><a href="#">Recruiters</a></li>
+                        <li><a href="#">Restaurants</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="#">Uncategorized</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <?php
+    <?php
+        } else {
+            echo "<h2 style='text-align:center;'>Job not found!</h2>";
+        }
+        $conn->close();
     } else {
-        echo "<h2 style='text-align:center;'>Job not found!</h2>";
+        echo "<h2 style='text-align:center;'>No Job ID provided!</h2>";
     }
-    $conn->close();
-} else {
-    echo "<h2 style='text-align:center;'>No Job ID provided!</h2>";
-}
-?>
+    ?>
+
+    <script>
+        $(document).ready(function() {
+            $('#showFormBtn').click(function(e) {
+                e.preventDefault();
+                $('#applyForm').slideToggle();
+            });
+        });
+    </script>
 
 </body>
+
 </html>
