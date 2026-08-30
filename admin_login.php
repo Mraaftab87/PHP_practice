@@ -11,7 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: admin_dashboard.php");
         exit;
     } else {
-        $error = "Wrong username or password!";
+        $_SESSION['login_error'] = "Wrong username or password!";
+        header("Location: admin_login.php");
+        exit;
     }
 }
 ?>
@@ -69,7 +71,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="login-box">
         <h2>Admin Login</h2>
-        <?php if ($error != "") echo "<p class='error'>$error</p>"; ?>
+        <?php
+        if (isset($_SESSION['login_error'])) {
+            echo "<p class='error'>" . $_SESSION['login_error'] . "</p>";
+            unset($_SESSION['login_error']);
+        }
+        ?>
         <form method="POST" action="admin_login.php">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
