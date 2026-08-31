@@ -211,7 +211,12 @@
         $(document).ready(function() {
             $('#showFormBtn').click(function(e) {
                 e.preventDefault();
-                $('#applyForm').slideToggle();
+
+                $('#applyForm').slideToggle('normal', function() {
+                    $(this)[0].scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
             });
         });
     </script>
