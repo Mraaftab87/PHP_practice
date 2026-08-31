@@ -64,6 +64,7 @@ $result = $conn->query($sql);
             <th>Phone</th>
             <th>Cover Letter</th>
             <th>Resume</th>
+            <th>Action</th>
         </tr>
 
         <?php
@@ -76,10 +77,11 @@ $result = $conn->query($sql);
                 echo "<td>" . htmlspecialchars($row['phone_number']) . "</td>";
                 echo "<td>" . nl2br(htmlspecialchars($row['cover_letter'])) . "</td>";
                 echo "<td><a href='" . htmlspecialchars($row['resume']) . "' target='_blank' class='view-btn'>View Resume</a></td>";
+                echo "<td><a href='delete_application.php?id=" . $row['id'] . "' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a></td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='6' style='text-align:center; padding: 20px;'>Abhi tak koi application nahi aayi hai.</td></tr>";
+            echo "<tr><td colspan='7' style='text-align:center; padding: 20px;'>There is not pending applicaion.</td></tr>";
         }
         $conn->close();
         ?>
