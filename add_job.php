@@ -133,7 +133,6 @@ require_once 'sidebar.php';
         <button type="submit" style="width: 100%; padding: 12px; background-color: #0d6efd; color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px;">
             <?php echo isset($job_data) ? 'Update Job' : 'Submit Job'; ?>
         </button>
-        <div id="message" style="text-align: center; margin-top: 15px; font-weight: bold;"></div>
     </form>
 </div>
 
@@ -159,13 +158,19 @@ require_once 'sidebar.php';
                 processData: false,
                 success: function(response) {
                     if (response.trim() == "success") {
-                        $('#message').html('<span style="color: green;">Job saved successfully!</span>');
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Job details saved successfully.',
+                            icon: 'success',
+                            confirmButtonColor: '#686818'
+                        });
+
                         <?php if (!isset($job_data)): ?>
                             $('#jobForm')[0].reset();
                             myEditor.setData('');
                         <?php endif; ?>
                     } else {
-                        $('#message').html('<span style="color: red;">Error: ' + response + '</span>');
+                        Swal.fire('Error!', response, 'error');
                     }
                 }
             });
