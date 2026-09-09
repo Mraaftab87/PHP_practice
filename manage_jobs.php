@@ -38,7 +38,7 @@ $result = $conn->query($sql);
             echo "<td>" . htmlspecialchars($row['salary']) . "</td>";
             echo "<td>
                     <a href='add_job.php?id=" . $row['id'] . "' style='color: #0d6efd; font-weight: bold; text-decoration: none; margin-right: 15px;'>Edit</a>
-                    <a href='delete_job.php?id=" . $row['id'] . "' style='color: red; font-weight: bold; text-decoration: none;' onclick=\"return confirm('Are you sure you want to delete this job?');\">Delete</a>
+                    <a href='delete_job.php?id=" . $row['id'] . "' class='delete-btn' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a>
                   </td>";
             echo "</tr>";
         }
