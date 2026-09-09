@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("isssss", $job_id, $name, $email, $phone_number, $resume_path, $cover_letter);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Your application has been submitted successfully!'); window.location.href='view_jobs.php';</script>";
+        echo "success";
     } else {
         echo "Error: " . $stmt->error;
     }

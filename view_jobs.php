@@ -51,6 +51,7 @@ if (!isset($_GET['ajax'])):
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <title>All Jobs</title>
         <style>
             body {
@@ -263,7 +264,12 @@ if (!isset($_GET['ajax'])):
                             $('#job-data-container').html(response);
                         },
                         error: function() {
-                            alert('Something went wrong!');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                confirmButtonColor: '#b0c4c4'
+                            });
                         }
                     });
                 });
