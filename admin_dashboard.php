@@ -40,7 +40,7 @@ $result = $conn->query($sql);
             echo "<td>" . htmlspecialchars($row['phone_number']) . "</td>";
             echo "<td>" . nl2br(htmlspecialchars($row['cover_letter'])) . "</td>";
             echo "<td><a href='" . htmlspecialchars($row['resume']) . "' target='_blank'>View Resume</a></td>";
-            echo "<td><a href='delete_application.php?id=" . $row['id'] . "' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a></td>";
+            echo "<td><a href='delete_application.php?id=" . $row['id'] . "' class='delete-btn' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a></td>";
             echo "</tr>";
         }
     } else {
@@ -48,7 +48,7 @@ $result = $conn->query($sql);
     }
     ?>
 </table>
-    
+
 </div>
 </body>
 
