@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- SweetAlert2 CDN add kiya gaya hai -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Job Details</title>
     <style>
         body {
@@ -211,11 +213,42 @@
         $(document).ready(function() {
             $('#showFormBtn').click(function(e) {
                 e.preventDefault();
-
                 $('#applyForm').slideToggle('normal', function() {
                     $(this)[0].scrollIntoView({
                         behavior: 'smooth'
                     });
+                });
+            });
+
+            $('#applyForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'process_application.php',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.trim() === "success") {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Your application has been submitted successfully!',
+                                icon: 'success',
+                                confirmButtonColor: '#728117'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'view_jobs.php';
+                                }
+                            });
+                        } else {
+                            Swal.fire('Error!', response, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Oops...', 'Something went wrong!', 'error');
+                    }
                 });
             });
         });
