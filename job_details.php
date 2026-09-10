@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- SweetAlert2 CDN add kiya gaya hai -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Job Details</title>
     <style>
@@ -103,6 +102,49 @@
             background-color: #6f631e;
             color: #e2cf6d;
         }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #ff4c4c;
+        }
     </style>
 </head>
 
@@ -146,38 +188,44 @@
 
                     <a href="#" class="apply-btn" id="showFormBtn">Apply Now</a>
 
-                    <form id="applyForm" action="process_application.php" method="POST" enctype="multipart/form-data" style="display: none; margin-top: 30px; background: #f9f9f9; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-                        <h3>Submit Your Application</h3>
+                    <div class="modal-overlay" id="applyModal">
+                        <div class="modal-content">
+                            <button class="close-btn" id="closeModalBtn">&times;</button>
 
-                        <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
+                            <form id="applyForm" action="process_application.php" method="POST" enctype="multipart/form-data">
+                                <h3 style="margin-top: 0;">Submit Your Application</h3>
 
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Name:</label>
-                            <input type="text" name="name" required style="width: 100%; padding: 8px; border: 1px solid #ccc;">
+                                <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
+
+                                <div style="margin-bottom: 15px;">
+                                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Name:</label>
+                                    <input type="text" name="name" required style="width: 100%; padding: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+                                </div>
+
+                                <div style="margin-bottom: 15px;">
+                                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Email:</label>
+                                    <input type="email" name="email" required style="width: 100%; padding: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+                                </div>
+
+                                <div style="margin-bottom: 15px;">
+                                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Phone Number:</label>
+                                    <input type="tel" name="phone_number" required style="width: 100%; padding: 8px; border: 1px solid #ccc; box-sizing: border-box;">
+                                </div>
+
+                                <div style="margin-bottom: 15px;">
+                                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Upload Resume:</label>
+                                    <input type="file" name="resume" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+                                </div>
+
+                                <div style="margin-bottom: 15px;">
+                                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Cover Letter:</label>
+                                    <textarea name="cover_letter" rows="5" required style="width: 100%; padding: 8px; border: 1px solid #ccc; font-family: inherit; box-sizing: border-box;"></textarea>
+                                </div>
+
+                                <button type="submit" class="apply-btn" style="border: none; cursor: pointer; width: 100%; margin-bottom: 0;">Submit Application</button>
+                            </form>
                         </div>
-
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Email:</label>
-                            <input type="email" name="email" required style="width: 100%; padding: 8px; border: 1px solid #ccc;">
-                        </div>
-
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Phone Number:</label>
-                            <input type="tel" name="phone_number" required style="width: 100%; padding: 8px; border: 1px solid #ccc;">
-                        </div>
-
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Upload Resume:</label>
-                            <input type="file" name="resume" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
-                        </div>
-
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Cover Letter:</label>
-                            <textarea name="cover_letter" rows="5" required style="width: 100%; padding: 8px; border: 1px solid #ccc; font-family: inherit;"></textarea>
-                        </div>
-
-                        <button type="submit" class="apply-btn" style="border: none; cursor: pointer; width: 100%;">Submit Application</button>
-                    </form>
+                    </div>
                 </div>
 
                 <div class="sidebar">
@@ -213,11 +261,17 @@
         $(document).ready(function() {
             $('#showFormBtn').click(function(e) {
                 e.preventDefault();
-                $('#applyForm').slideToggle('normal', function() {
-                    $(this)[0].scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
+                $('#applyModal').css('display', 'flex');
+            });
+
+            $('#closeModalBtn').click(function() {
+                $('#applyModal').hide();
+            });
+
+            $(window).click(function(e) {
+                if ($(e.target).is('#applyModal')) {
+                    $('#applyModal').hide();
+                }
             });
 
             $('#applyForm').on('submit', function(e) {
@@ -232,15 +286,14 @@
                     processData: false,
                     success: function(response) {
                         if (response.trim() === "success") {
+                            $('#applyForm')[0].reset();
+                            $('#applyModal').hide();
+
                             Swal.fire({
                                 title: 'Success!',
                                 text: 'Your application has been submitted successfully!',
                                 icon: 'success',
                                 confirmButtonColor: '#728117'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = 'view_jobs.php';
-                                }
                             });
                         } else {
                             Swal.fire('Error!', response, 'error');
