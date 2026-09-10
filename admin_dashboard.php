@@ -26,8 +26,7 @@ $result = $conn->query($sql);
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Cover Letter</th>
-        <th>Resume</th>
+        <th>Application Details</th>
         <th>Action</th>
     </tr>
     <?php
@@ -38,13 +37,14 @@ $result = $conn->query($sql);
             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
             echo "<td>" . htmlspecialchars($row['phone_number']) . "</td>";
-            echo "<td>" . nl2br(htmlspecialchars($row['cover_letter'])) . "</td>";
-            echo "<td><a href='" . htmlspecialchars($row['resume']) . "' target='_blank'>View Resume</a></td>";
+
+            echo "<td><a href='view_application.php?id=" . $row['id'] . "' target='_blank' style='color: #0d6efd; font-weight: bold; text-decoration: none;'>View Details</a></td>";
+
             echo "<td><a href='delete_application.php?id=" . $row['id'] . "' class='delete-btn' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a></td>";
             echo "</tr>";
         }
     } else {
-        echo "<tr><td colspan='7' style='text-align:center; padding: 20px;'>There is no pending application.</td></tr>";
+        echo "<tr><td colspan='6' style='text-align:center; padding: 20px;'>There is no pending application.</td></tr>";
     }
     ?>
 </table>
