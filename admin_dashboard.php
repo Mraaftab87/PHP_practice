@@ -38,9 +38,12 @@ $result = $conn->query($sql);
             echo "<td>" . htmlspecialchars($row['email']) . "</td>";
             echo "<td>" . htmlspecialchars($row['phone_number']) . "</td>";
 
-            echo "<td><a href='view_application.php?id=" . $row['id'] . "' target='_blank' style='color: #0d6efd; font-weight: bold; text-decoration: none;'>View Details</a></td>";
-
-            echo "<td><a href='delete_application.php?id=" . $row['id'] . "' class='delete-btn' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a></td>";
+            echo "<td>
+                    <div class='action-btns'>
+                        <a href='view_application.php?id=" . $row['id'] . "' target='_blank' class='btn-action btn-edit' style='background-color: #686818;'>View Details</a>
+                        <a href='delete_application.php?id=" . $row['id'] . "' class='btn-action btn-delete delete-btn'>Delete</a>
+                    </div>
+                  </td>";
             echo "</tr>";
         }
     } else {
