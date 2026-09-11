@@ -101,6 +101,37 @@
             background-color: #686818;
             color: white;
         }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            padding: 6px 14px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            color: white !important;
+            transition: background-color 0.3s;
+        }
+
+        .btn-edit {
+            background-color: #0d6efd;
+        }
+
+        .btn-edit:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+        }
     </style>
 </head>
 
