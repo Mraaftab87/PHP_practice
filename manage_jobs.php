@@ -37,8 +37,10 @@ $result = $conn->query($sql);
             echo "<td>" . htmlspecialchars($row['city']) . "</td>";
             echo "<td>" . htmlspecialchars($row['salary']) . "</td>";
             echo "<td>
-                    <a href='add_job.php?id=" . $row['id'] . "' style='color: #0d6efd; font-weight: bold; text-decoration: none; margin-right: 15px;'>Edit</a>
-                    <a href='delete_job.php?id=" . $row['id'] . "' class='delete-btn' style='color: red; font-weight: bold; text-decoration: none;'>Delete</a>
+                    <div class='action-btns'>
+                        <a href='add_job.php?id=" . $row['id'] . "' class='btn-action btn-edit'>Edit</a>
+                        <a href='delete_job.php?id=" . $row['id'] . "' class='btn-action btn-delete delete-btn'>Delete</a>
+                    </div>
                   </td>";
             echo "</tr>";
         }
